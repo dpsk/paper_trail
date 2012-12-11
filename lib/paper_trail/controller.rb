@@ -18,7 +18,7 @@ module PaperTrail
     end
 
     def user_class_for_paper_trail
-      user_for_paper_trail.class rescue nil
+      user_for_paper_trail.class.to_s rescue nil
     end
 
     # Returns any information about the controller or request that you
