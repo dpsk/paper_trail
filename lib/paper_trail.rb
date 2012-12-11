@@ -53,7 +53,7 @@ module PaperTrail
   def self.whodunnit=(value)
     paper_trail_store[:whodunnit] = value
   end
-  
+
   # Returns the class of terminator who is reponsible for any changes that occur.
   def self.whodunnit_class
     paper_trail_store[:whodunnit_class]
@@ -63,10 +63,9 @@ module PaperTrail
   # You would normally use this in a migration or on the console,
   # when working with models directly.  In a controller it is set
   # automatically to the `current_user`.
-  def self.whodunnit=(value)
+  def self.whodunnit_class=(value)
     paper_trail_store[:whodunnit_class] = value
   end
-
 
   # Returns any information from the controller that you want
   # PaperTrail to store.

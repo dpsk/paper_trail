@@ -17,6 +17,10 @@ module PaperTrail
       current_user rescue nil
     end
 
+    def user_class_for_paper_trail
+      user_for_paper_trail.class rescue nil
+    end
+
     # Returns any information about the controller or request that you
     # want PaperTrail to store alongside any changes that occur.  By
     # default this returns an empty hash.
@@ -57,7 +61,7 @@ module PaperTrail
     # Tells PaperTrail who is responsible for any changes that occur.
     def set_paper_trail_whodunnit
       ::PaperTrail.whodunnit = user_for_paper_trail if paper_trail_enabled_for_controller
-      ::PaperTrail.whodunnit_class = user_for_paper_trail.class if user_for_paper_trail and paper_trail_enabled_for_controller
+      ::PaperTrail.whodunnit_class = user_class_for_paper_trail if paper_trail_enabled_for_controller
     end
 
     # DEPRECATED: please use `set_paper_trail_whodunnit` instead.

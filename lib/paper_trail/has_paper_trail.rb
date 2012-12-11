@@ -147,7 +147,8 @@ module PaperTrail
         if switched_on?
           data = {
             :event     => 'create',
-            :whodunnit => PaperTrail.whodunnit
+            :whodunnit => PaperTrail.whodunnit,
+            :whodunnit_class => PaperTrail.whodunnit_class
           }
 
           if changed_notably? and version_class.column_names.include?('object_changes')
@@ -164,7 +165,8 @@ module PaperTrail
           data = {
             :event     => 'update',
             :object    => object_to_string(item_before_change),
-            :whodunnit => PaperTrail.whodunnit
+            :whodunnit => PaperTrail.whodunnit,
+            :whodunnit_class => PaperTrail.whodunnit_class
           }
           if version_class.column_names.include? 'object_changes'
             # The double negative (reject, !include?) preserves the hash structure of self.changes.
@@ -182,7 +184,8 @@ module PaperTrail
                                               :item_type => self.class.base_class.name,
                                               :event     => 'destroy',
                                               :object    => object_to_string(item_before_change),
-                                              :whodunnit => PaperTrail.whodunnit)
+                                              :whodunnit => PaperTrail.whodunnit,
+                                              :whodunnit_class => PaperTrail.whodunnit_class)
         end
         send(self.class.versions_association_name).send :load_target
       end
