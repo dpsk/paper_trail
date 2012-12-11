@@ -20,6 +20,7 @@ class SetUpTestTables < ActiveRecord::Migration
       t.integer  :item_id,   :null => false
       t.string   :event,     :null => false
       t.string   :whodunnit
+      t.string   :whodunnit_class
       t.text     :object
       t.text     :object_changes
       t.datetime :created_at
@@ -42,6 +43,7 @@ class SetUpTestTables < ActiveRecord::Migration
       t.integer  :item_id,   :null => false
       t.string   :event,     :null => false
       t.string   :whodunnit
+      t.string   :whodunnit_class
       t.text     :object
       t.datetime :created_at
 
@@ -99,7 +101,7 @@ class SetUpTestTables < ActiveRecord::Migration
     create_table :documents, :force => true do |t|
       t.string :name
     end
-    
+
     create_table :legacy_widgets, :force => true do |t|
       t.string    :name
       t.integer   :version

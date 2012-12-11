@@ -42,6 +42,7 @@ class ControllerTest < ActionController::TestCase
     widget = assigns(:widget)
     assert_equal 1, widget.versions.length
     assert_equal 153, widget.versions.last.whodunnit.to_i
+    assert_equal 'Fixnum', widget.versions.last.whodunnit_class #since current_user stubbed as fixnum for testing
     assert_equal '127.0.0.1', widget.versions.last.ip
     assert_equal 'Rails Testing', widget.versions.last.user_agent
   end
@@ -53,6 +54,7 @@ class ControllerTest < ActionController::TestCase
     widget = assigns(:widget)
     assert_equal 2, widget.versions.length
     assert_equal 153, widget.versions.last.whodunnit.to_i
+    assert_equal 'Fixnum', widget.versions.last.whodunnit_class #since current_user stubbed as fixnum for testing
     assert_equal '127.0.0.1', widget.versions.last.ip
     assert_equal 'Rails Testing', widget.versions.last.user_agent
   end
@@ -65,6 +67,7 @@ class ControllerTest < ActionController::TestCase
     versions_for_widget = Version.with_item_keys('Widget', w.id)
     assert_equal 2,               versions_for_widget.length
     assert_equal 153,             versions_for_widget.last.whodunnit.to_i
+    assert_equal 'Fixnum',        versions_for_widget.last.whodunnit_class #since current_user stubbed as fixnum for testing
     assert_equal '127.0.0.1',     versions_for_widget.last.ip
     assert_equal 'Rails Testing', versions_for_widget.last.user_agent
   end
@@ -74,6 +77,7 @@ class ControllerTest < ActionController::TestCase
     post :create, :widget => { :name => 'Flugel' }
     assert PaperTrail.enabled_for_controller?
     assert_equal 153, PaperTrail.whodunnit
+    assert_equal 'Fixnum', PaperTrail.whodunnit_class
     assert PaperTrail.controller_info.present?
     assert PaperTrail.controller_info.keys.include?(:ip)
     assert PaperTrail.controller_info.keys.include?(:user_agent)
@@ -83,7 +87,7 @@ class ControllerTest < ActionController::TestCase
     @request.env['HTTP_USER_AGENT'] = 'Disable User-Agent'
     post :create, :widget => { :name => 'Flugel' }
     assert_equal 0, assigns(:widget).versions.length
-    assert !PaperTrail.enabled_for_controller?    
+    assert !PaperTrail.enabled_for_controller?
     assert PaperTrail.whodunnit.nil?
     assert PaperTrail.controller_info.nil?
   end
