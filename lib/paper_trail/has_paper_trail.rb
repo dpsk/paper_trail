@@ -148,7 +148,7 @@ module PaperTrail
           data = {
             :event     => 'create',
             :whodunnit => PaperTrail.whodunnit,
-            :whodunnit_class => PaperTrail.whodunnit_class.to_s
+            :whodunnit_class => PaperTrail.whodunnit_class
           }
 
           if changed_notably? and version_class.column_names.include?('object_changes')
